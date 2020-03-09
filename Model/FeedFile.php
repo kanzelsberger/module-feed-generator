@@ -175,16 +175,23 @@ class FeedFile
 
             foreach ($feedProducts as $feedProduct)
             {
+                $cpc = $this->getFinalPrice() * 0.025;
+                if ($cpc > 1) { $cpc = 1.0 }
+
+                $description = $feedProduct->getData('short_description');
+                $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));
+
                 fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
 
                 fwrite($this->_finalFeedFile,"<ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
                 fwrite($this->_finalFeedFile,"<PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
                 fwrite($this->_finalFeedFile,"<PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
-                fwrite($this->_finalFeedFile,"<DESCRIPTION><![CDATA[" . $feedProduct->getData('short_description') . "]]</DESCRIPTION>\n");
+                fwrite($this->_finalFeedFile,"<DESCRIPTION><![CDATA[" . $descfiltered . "]]</DESCRIPTION>\n");
                 fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
                 fwrite($this->_finalFeedFile,"<URL>" . $baseUrl . $feedProduct->getProductUrl() . "</URL>\n");
                 fwrite($this->_finalFeedFile,"<IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
                 fwrite($this->_finalFeedFile,"<EAN>" . $feedProduct->getData('ean_13') . "</EAN>\n");
+                fwrite($this->_finalFeedFile,"<HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
 
                 fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
             }

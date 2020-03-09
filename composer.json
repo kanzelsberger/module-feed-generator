@@ -3,7 +3,7 @@
   "description": "A feed generator extension for Magento 2",
   "type": "magento2-module",
   "license": "proprietary",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "require": {
     "php": ">=7.0"
   },
@@ -15,6 +15,11 @@
     "email": "michele@fantetti.net",
     "homepage": "https://www.fantetti.net",
     "role": "Developer"
+  },{
+      "name": "Pavel Kanzelsberger",
+      "email": "pavel@kanzelsberger.com",
+      "homepage": "https://www.kanzelsberger.com",
+      "role": "Developer"
   }],
   "autoload": {
     "files": ["registration.php"],

@@ -168,7 +168,7 @@ class FeedFile
     private function _writeHeurekaFeedFile($feedProducts)
     {
         try {
-            fwrite($this->_finalFeedFile, "<?xml version="1.0" encoding="utf-8"?>\n");
+            fwrite($this->_finalFeedFile, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             fwrite($this->_finalFeedFile, "<SHOP>\n");
 
             foreach ($feedProducts as $feedProduct)

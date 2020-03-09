@@ -168,6 +168,7 @@ class FeedFile
     private function _writeHeurekaFeedFile($feedProducts)
     {
         try {
+            fwrite($this->_finalFeedFile, "<?xml version="1.0" encoding="utf-8"?>\n");
             fwrite($this->_finalFeedFile, "<SHOP>\n");
 
             foreach ($feedProducts as $feedProduct)
@@ -177,9 +178,11 @@ class FeedFile
                 fwrite($this->_finalFeedFile,"<ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
                 fwrite($this->_finalFeedFile,"<PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
                 fwrite($this->_finalFeedFile,"<PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
-                fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getPrice() * 1.2. "</PRICE_VAT>\n");
-                fwrite($this->_finalFeedFile,"<URL>". $feedProduct->getProductUrl() ."</URL>\n");
-                fwrite($this->_finalFeedFile,"<IMGURL>". $feedProduct->getData('image') ."</IMGURL>\n");
+                fwrite($this->_finalFeedFile,"<DESCRIPTION>" . $feedProduct->getData('short_description') . "</DESCRIPTION>\n");
+                fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
+                fwrite($this->_finalFeedFile,"<URL>" . $feedProduct->getProductUrl() . "</URL>\n");
+                fwrite($this->_finalFeedFile,"<IMGURL>" . $feedProduct->getData('image') . "</IMGURL>\n");
+                fwrite($this->_finalFeedFile,"<EAN>" . $feedProduct->getData('ean_13') . "</EAN>\n");
 
                 fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
             }

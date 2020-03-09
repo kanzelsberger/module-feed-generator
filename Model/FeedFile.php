@@ -185,8 +185,8 @@ class FeedFile
                     $description = $feedProduct->getData('short_description');
                     $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));
 
-                    $manufacturer = $feedProduct->getData('manufacturer');
-                    $color = $feedProduct->getData('color');
+                    $manufacturer = $feedProduct->getAttributeText('manufacturer');
+                    $color = $feedProduct->getAttributeText('color');
 
                     fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
 

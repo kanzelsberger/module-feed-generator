@@ -176,7 +176,9 @@ class FeedFile
             foreach ($feedProducts as $feedProduct)
             {
                 $cpc = $this->getFinalPrice() * 0.025;
-                if ($cpc > 1) { $cpc = 1.0 }
+                if ($cpc > 1) {
+                    $cpc = 1.0;
+                }
 
                 $description = $feedProduct->getData('short_description');
                 $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));

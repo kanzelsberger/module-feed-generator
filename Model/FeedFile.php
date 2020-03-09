@@ -185,17 +185,29 @@ class FeedFile
                     $description = $feedProduct->getData('short_description');
                     $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));
 
+                    $manufacturer = $feedProduct->getData('manufacturer');
+                    $color = $feedProduct->getData('color');
+
                     fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
 
-                    fwrite($this->_finalFeedFile,"<ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
-                    fwrite($this->_finalFeedFile,"<PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
-                    fwrite($this->_finalFeedFile,"<PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
-                    fwrite($this->_finalFeedFile,"<DESCRIPTION><![CDATA[" . $descfiltered . "]]</DESCRIPTION>\n");
-                    fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
-                    fwrite($this->_finalFeedFile,"<URL>" . $baseUrl . $feedProduct->getProductUrl() . "</URL>\n");
-                    fwrite($this->_finalFeedFile,"<IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
-                    fwrite($this->_finalFeedFile,"<EAN>" . $feedProduct->getData('ean_13') . "</EAN>\n");
-                    fwrite($this->_finalFeedFile,"<HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
+                    fwrite($this->_finalFeedFile," <ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
+                    fwrite($this->_finalFeedFile," <PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
+                    fwrite($this->_finalFeedFile," <PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
+                    fwrite($this->_finalFeedFile," <DESCRIPTION><![CDATA[" . $descfiltered . "]]</DESCRIPTION>\n");
+                    fwrite($this->_finalFeedFile," <PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
+                    fwrite($this->_finalFeedFile," <URL>" . $baseUrl . $feedProduct->getProductUrl() . "</URL>\n");
+                    fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
+                    fwrite($this->_finalFeedFile," <EAN>" . $feedProduct->getData('ean_13') . "</EAN>\n");
+                    fwrite($this->_finalFeedFile," <HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
+                    if ($manufacturer != "") {
+                        fwrite($this->_finalFeedFile," <MANUFACTURER>" . $manufacturer . "</MANUFACTURER>\n");
+                    }
+                    if ($color != "") {
+                        fwrite($this->_finalFeedFile," <PARAM>\n");
+                        fwrite($this->_finalFeedFile,"  <PARAM_NAME>Farba</PARAM_NAME>\n");
+                        fwrite($this->_finalFeedFile,"  <VALUE>" . $color . "</VALUE>\n");
+                        fwrite($this->_finalFeedFile," </PARAM>\n");
+                    }
 
                     fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
                 }

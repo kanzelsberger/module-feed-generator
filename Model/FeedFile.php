@@ -178,8 +178,8 @@ class FeedFile
                 fwrite($this->_finalFeedFile,"<PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
                 fwrite($this->_finalFeedFile,"<PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
                 fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getPrice() * 1.2. "</PRICE_VAT>\n");
-                fwrite($this->_finalFeedFile,"<URL>"). $feedProduct->getProductUrl() ."</URL>\n");
-                fwrite($this->_finalFeedFile,"<IMGURL>"). $feedProduct->getData('image') ."</IMGURL>\n");
+                fwrite($this->_finalFeedFile,"<URL>". $feedProduct->getProductUrl() ."</URL>\n");
+                fwrite($this->_finalFeedFile,"<IMGURL>". $feedProduct->getData('image') ."</IMGURL>\n");
 
                 fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
             }

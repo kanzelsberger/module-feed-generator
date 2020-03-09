@@ -61,10 +61,10 @@ class FeedProducts
             $collection = $this->_productCollectionFactory->create();
 
             $collection
-                ->addFieldToSelect('name', 'SKU')
-                ->addFieldToFilter('price', array('gt' => $priceFilter))
-                ->setOrder('created_at')
-                ->setPageSize(5);
+                ->addAttributeToSelect('*")
+                ->addAttributeToFilter('status', 1)
+                ->addAttributeToFilter('visibility', 4)
+                ->load();
         } catch (\Exception $exception)  {
             return array("success" => false, "message" => "Feed products collection error: " . $exception->getMessage());
         }

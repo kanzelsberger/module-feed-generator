@@ -61,7 +61,7 @@ class FeedProducts
             $collection = $this->_productCollectionFactory->create();
 
             $collection
-                ->addAttributeToSelect('*")
+                ->addAttributeToSelect('*')
                 ->addAttributeToFilter('status', 1)
                 ->addAttributeToFilter('visibility', 4)
                 ->load();

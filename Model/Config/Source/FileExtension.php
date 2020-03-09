@@ -25,7 +25,8 @@ class FileExtension implements ArrayInterface
     {
         $options = array(
             array("value" => 'csv', "label" => "CSV"),
-            array("value" => 'xml', "label" => "XML")
+            array("value" => 'xml', "label" => "XML"),
+            array("value" => 'xmlh', "label" => "Heureka XML")
         );
 
         return $options;

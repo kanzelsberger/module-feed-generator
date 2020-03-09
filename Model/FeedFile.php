@@ -23,6 +23,7 @@ class FeedFile
     const FEED_FILE_NAME = 'feed';
     const FEED_FILE_TYPE_CSV = 'csv';
     const FEED_FILE_TYPE_XML = 'xml';
+    const FEED_FILE_TYPE_HEUREKA = 'xmlh';
     const FIELD_SEPARATOR = '|';
 
     protected $_finalFeedFile;
@@ -89,6 +90,9 @@ class FeedFile
             case self::FEED_FILE_TYPE_XML:
                 $ret = $this->_writeXMLFeedFile($feedProducts);
                 break;
+            case self::FEED_FILE_TYPE_HEUREKA:
+                $ret = $this->_writeHeurekaFeedFile($feedProducts);
+                break;
             default:
                 $ret = $this->_writeCSVFeedFile($feedProducts);
         }
@@ -154,4 +158,38 @@ class FeedFile
 
         return array("success" => true);
     }
+
+    /**
+     * Writing feed file in Heureka XML format
+     *
+     * @param $feedProducts
+     * @return array
+     */
+    private function _writeHeurekaFeedFile($feedProducts)
+    {
+        try {
+            fwrite($this->_finalFeedFile, "<SHOP>\n");
+
+            foreach ($feedProducts as $feedProduct)
+            {
+                fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
+
+                fwrite($this->_finalFeedFile,"<ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
+                fwrite($this->_finalFeedFile,"<PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
+                fwrite($this->_finalFeedFile,"<PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
+                fwrite($this->_finalFeedFile,"<PRICE_VAT>" . $feedProduct->getPrice() * 1.2. "</PRICE_VAT>\n");
+                fwrite($this->_finalFeedFile,"<URL>"). $feedProduct->getProductUrl() ."</URL>\n");
+                fwrite($this->_finalFeedFile,"<IMGURL>"). $feedProduct->getData('image') ."</IMGURL>\n");
+
+                fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
+            }
+
+            fwrite($this->_finalFeedFile, "</SHOP>");
+        } catch (\Exception $exception)  {
+            return array("success" => false, "message" => "XML Feed File creation error: " . $exception->getMessage());
+        }
+
+        return array("success" => true);
+    }
+
 }

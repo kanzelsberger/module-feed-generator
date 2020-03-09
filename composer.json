@@ -1,9 +1,10 @@
 {
-  "name": "wapone/module-feed-generator",
+  "name": "kanzelsberger/module-feed-generator",
   "description": "A feed generator extension for Magento 2",
   "type": "magento2-module",
   "license": "proprietary",
   "version": "1.0.1",
+  "minimum-stability": "dev",
   "require": {
     "php": ">=7.0"
   },

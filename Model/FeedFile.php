@@ -188,12 +188,22 @@ class FeedFile
                     $manufacturer = $feedProduct->getAttributeText('manufacturer');
                     $color = $feedProduct->getAttributeText('color');
 
+                    $catNames = [];
+                    if ($categoryIds = $feedProduct->getCustomAttribute('category_ids')) {
+                        foreach ($categoryIds->getValue() as $categoryId) {
+                            $category = $this->categoryRepository->get($categoryId);
+                            array_push($catNames, $category->getName());
+                        }
+                    }
+                    $categoryText = implode(' | ', $catNames);
+
                     fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
 
                     fwrite($this->_finalFeedFile," <ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
                     fwrite($this->_finalFeedFile," <PRODUCTNAME>" . $feedProduct->getName() . "</PRODUCTNAME>\n");
                     fwrite($this->_finalFeedFile," <PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
                     fwrite($this->_finalFeedFile," <DESCRIPTION><![CDATA[" . $descfiltered . "]]></DESCRIPTION>\n");
+                    fwrite($this->_finalFeedFile," <CATEGORYTEXT>" . $categoryText . "</CATEGORYTEXT>\n");
                     fwrite($this->_finalFeedFile," <PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
                     fwrite($this->_finalFeedFile," <URL>" . $baseUrl . $feedProduct->getProductUrl() . "</URL>\n");
                     fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");

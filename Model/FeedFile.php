@@ -205,6 +205,13 @@ class FeedFile
                     fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
                     fwrite($this->_finalFeedFile," <EAN>" . $feedProduct->getData('ean_13') . "</EAN>\n");
                     fwrite($this->_finalFeedFile," <HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
+                    fwrite($this->_finalFeedFile," <DELIVERY_DATE>" . "2" . "</DELIVERY_DATE>\n");
+                    fwrite($this->_finalFeedFile," <DELIVERY>\n");
+                    fwrite($this->_finalFeedFile,"  <DELIVERY_ID>DPD Classic</DELIVERY_ID>\n");
+                    fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE>3.50</DELIVERY_PRICE>\n");
+                    fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE_COD>4.30</DELIVERY_PRICE_COD>\n");
+                    fwrite($this->_finalFeedFile," </DELIVERY>\n");
+
                     if ($manufacturer != "") {
                         fwrite($this->_finalFeedFile," <MANUFACTURER>" . $manufacturer . "</MANUFACTURER>\n");
                     }

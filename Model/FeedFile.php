@@ -202,7 +202,7 @@ class FeedFile
                     fwrite($this->_finalFeedFile," <CATEGORYTEXT>" . $heureka_category . "</CATEGORYTEXT>\n");
                     fwrite($this->_finalFeedFile," <PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
                     fwrite($this->_finalFeedFile," <VAT>20%</VAT>\n");
-                    fwrite($this->_finalFeedFile," <URL>" . $baseUrl . $feedProduct->getProductUrl() . "</URL>\n");
+                    fwrite($this->_finalFeedFile," <URL>" . $feedProduct->getProductUrl() . "</URL>\n");
                     fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
                     fwrite($this->_finalFeedFile," <EAN>" . $feedProduct->getData('ts_hs_code') . "</EAN>\n");
                     fwrite($this->_finalFeedFile," <HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");

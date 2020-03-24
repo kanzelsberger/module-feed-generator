@@ -167,7 +167,7 @@ class FeedFile
      */
     private function _writeHeurekaFeedFile($feedProducts)
     {
-        $baseUrl = "https://threed.store";
+        $baseUrl = "https://threed.store/media/catalog/product";
 
         try {
             fwrite($this->_finalFeedFile, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");

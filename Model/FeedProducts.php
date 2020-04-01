@@ -63,7 +63,7 @@ class FeedProducts
             $collection
                 ->addAttributeToSelect('*')
                 ->addAttributeToFilter('status', 1)
-                ->addAttributeToFilter('visibility', 4)
+                //->addAttributeToFilter('visibility', 4)
                 ->load();
         } catch (\Exception $exception)  {
             return array("success" => false, "message" => "Feed products collection error: " . $exception->getMessage());

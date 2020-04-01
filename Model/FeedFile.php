@@ -182,48 +182,48 @@ class FeedFile
                         $cpc = 1;
                     }
 
-                    $description = $feedProduct->getData('short_description');
-                    $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));
-
-                    $manufacturer = $feedProduct->getAttributeText('manufacturer');
-                    $color = $feedProduct->getAttributeText('color');
                     $heureka_name = $feedProduct->getData('heureka_name');
-                    if ($heureka_name == "") {
-                        $heureka_name = $feedProduct->getName();
+                    if ($heureka_name != "") {
+                        $heureka_category = $feedProduct->getData('heureka_category');
+
+                        $description = $feedProduct->getData('short_description');
+                        $descfiltered = strip_tags(str_replace('{{', '<', str_replace('}}', '>', $description)));
+
+                        $manufacturer = $feedProduct->getAttributeText('manufacturer');
+                        $color = $feedProduct->getAttributeText('color');
+
+                        fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
+
+                        fwrite($this->_finalFeedFile," <ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
+                        fwrite($this->_finalFeedFile," <PRODUCTNAME>" . $heureka_name . "</PRODUCTNAME>\n");
+                        fwrite($this->_finalFeedFile," <PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
+                        fwrite($this->_finalFeedFile," <DESCRIPTION><![CDATA[" . $descfiltered . "]]></DESCRIPTION>\n");
+                        fwrite($this->_finalFeedFile," <CATEGORYTEXT>" . $heureka_category . "</CATEGORYTEXT>\n");
+                        fwrite($this->_finalFeedFile," <PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
+                        fwrite($this->_finalFeedFile," <VAT>20%</VAT>\n");
+                        fwrite($this->_finalFeedFile," <URL>" . $feedProduct->getProductUrl() . "</URL>\n");
+                        fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
+                        fwrite($this->_finalFeedFile," <EAN>" . $feedProduct->getData('ts_hs_code') . "</EAN>\n");
+                        fwrite($this->_finalFeedFile," <HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
+                        fwrite($this->_finalFeedFile," <DELIVERY_DATE>" . "2" . "</DELIVERY_DATE>\n");
+                        fwrite($this->_finalFeedFile," <DELIVERY>\n");
+                        fwrite($this->_finalFeedFile,"  <DELIVERY_ID>DPD Classic</DELIVERY_ID>\n");
+                        fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE>3.50</DELIVERY_PRICE>\n");
+                        fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE_COD>4.30</DELIVERY_PRICE_COD>\n");
+                        fwrite($this->_finalFeedFile," </DELIVERY>\n");
+
+                        if ($manufacturer != "") {
+                            fwrite($this->_finalFeedFile," <MANUFACTURER>" . $manufacturer . "</MANUFACTURER>\n");
+                        }
+                        if ($color != "") {
+                            fwrite($this->_finalFeedFile," <PARAM>\n");
+                            fwrite($this->_finalFeedFile,"  <PARAM_NAME>Farba</PARAM_NAME>\n");
+                            fwrite($this->_finalFeedFile,"  <VALUE>" . $color . "</VALUE>\n");
+                            fwrite($this->_finalFeedFile," </PARAM>\n");
+                        }
+
+                        fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
                     }
-                    $heureka_category = $feedProduct->getData('heureka_category');
-
-                    fwrite($this->_finalFeedFile, "<SHOPITEM>\n");
-
-                    fwrite($this->_finalFeedFile," <ITEM_ID>" . $feedProduct->getSku() . "</ITEM_ID>\n");
-                    fwrite($this->_finalFeedFile," <PRODUCTNAME>" . $heureka_name . "</PRODUCTNAME>\n");
-                    fwrite($this->_finalFeedFile," <PRODUCT>" . $feedProduct->getName() . "</PRODUCT>\n");
-                    fwrite($this->_finalFeedFile," <DESCRIPTION><![CDATA[" . $descfiltered . "]]></DESCRIPTION>\n");
-                    fwrite($this->_finalFeedFile," <CATEGORYTEXT>" . $heureka_category . "</CATEGORYTEXT>\n");
-                    fwrite($this->_finalFeedFile," <PRICE_VAT>" . $feedProduct->getFinalPrice() * 1.2 . "</PRICE_VAT>\n");
-                    fwrite($this->_finalFeedFile," <VAT>20%</VAT>\n");
-                    fwrite($this->_finalFeedFile," <URL>" . $feedProduct->getProductUrl() . "</URL>\n");
-                    fwrite($this->_finalFeedFile," <IMGURL>" . $baseUrl . $feedProduct->getData('image') . "</IMGURL>\n");
-                    fwrite($this->_finalFeedFile," <EAN>" . $feedProduct->getData('ts_hs_code') . "</EAN>\n");
-                    fwrite($this->_finalFeedFile," <HEUREKA_CPC>" .$cpc . "</HEUREKA_CPC>\n");
-                    fwrite($this->_finalFeedFile," <DELIVERY_DATE>" . "2" . "</DELIVERY_DATE>\n");
-                    fwrite($this->_finalFeedFile," <DELIVERY>\n");
-                    fwrite($this->_finalFeedFile,"  <DELIVERY_ID>DPD Classic</DELIVERY_ID>\n");
-                    fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE>3.50</DELIVERY_PRICE>\n");
-                    fwrite($this->_finalFeedFile,"  <DELIVERY_PRICE_COD>4.30</DELIVERY_PRICE_COD>\n");
-                    fwrite($this->_finalFeedFile," </DELIVERY>\n");
-
-                    if ($manufacturer != "") {
-                        fwrite($this->_finalFeedFile," <MANUFACTURER>" . $manufacturer . "</MANUFACTURER>\n");
-                    }
-                    if ($color != "") {
-                        fwrite($this->_finalFeedFile," <PARAM>\n");
-                        fwrite($this->_finalFeedFile,"  <PARAM_NAME>Farba</PARAM_NAME>\n");
-                        fwrite($this->_finalFeedFile,"  <VALUE>" . $color . "</VALUE>\n");
-                        fwrite($this->_finalFeedFile," </PARAM>\n");
-                    }
-
-                    fwrite($this->_finalFeedFile, "</SHOPITEM>\n");
                 }
             }
 

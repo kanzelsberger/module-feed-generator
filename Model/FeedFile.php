@@ -173,8 +173,12 @@ class FeedFile
             fwrite($this->_finalFeedFile, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
             fwrite($this->_finalFeedFile, "<SHOP>\n");
 
+            $total = 0;
+            $exported = 0;
+
             foreach ($feedProducts as $feedProduct)
             {
+                $total++;
                 $price = $feedProduct->getFinalPrice();
                 if ($price > 0) {
                     $cpc = $price * 0.025;
@@ -184,6 +188,8 @@ class FeedFile
 
                     $heureka_name = $feedProduct->getData('heureka_name');
                     if ($heureka_name != "") {
+                        $exported++;
+                        echo "Exporting: $heureka_name\n";
                         $heureka_category = $feedProduct->getData('heureka_category');
 
                         $description = $feedProduct->getData('short_description');
@@ -228,6 +234,9 @@ class FeedFile
             }
 
             fwrite($this->_finalFeedFile, "</SHOP>");
+
+            echo "Exported $exported from total of $total products...";
+
         } catch (\Exception $exception)  {
             return array("success" => false, "message" => "XML Feed File creation error: " . $exception->getMessage());
         }
